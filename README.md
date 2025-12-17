@@ -6,7 +6,6 @@ A frontend UI clone of the **first three screens of the Ayo (GoAyo) website**, b
 ## Tech Stack
 - React
 - Tailwind CSS
-- JavaScript
 
 ## Features
 - UI clone of the first three screens
