@@ -6,13 +6,15 @@ import Disruption from "../components/sections/Disruption";
 import ImageCarousel from "../components/ImageCarousel";
 
 const Home = () => {
-  const targetDate = new Date("2025-12-25T23:59:59").getTime();
+  const targetDate = new Date("2026-02-25T23:59:59").getTime();
 
   const calculateTimeLeft = () => {
     const now = new Date().getTime();
     const difference = targetDate - now;
 
-    if (difference <= 0) return null;
+    if (difference <= 0) {
+      return null;
+    }
 
     return {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -32,24 +34,28 @@ const Home = () => {
     return () => clearInterval(timer);
   }, []);
 
-  if (!timeLeft) {
-    return <p>Time expired</p>;
-  }
+  const isExpired = !timeLeft;
 
   return (
     <>
-      <div className="bg-black text-white p-4 flex flex-col justify-center items-center m-2 rounded-xl">
-        <h1 className="uppercase">Sleep better, feel Amazing, start now.</h1>
+      <div className="bg-black text-white p-4 flex flex-col justify-center items-center m-2 rounded-xl text-center">
+        <h1 className="uppercase">Sleep better, feel amazing, start now.</h1>
         <p className="font-semibold">
           This holiday: 15% OFF + FREE Expedited Shipping
         </p>
-        <p>
-          Use code CHRISTMAS – limited stock {String(timeLeft.days)}d{" "}
-          {String(timeLeft.hours).padStart(2, "0")}:
-          {String(timeLeft.minutes).padStart(2, "0")}:
-          {String(timeLeft.seconds).padStart(2, "0")}
-        </p>
+
+        {isExpired ? (
+          <p className="text-red-400 font-bold mt-1">Offer expired</p>
+        ) : (
+          <p className="mt-1">
+            Use code <b>CHRISTMAS</b> – limited stock {timeLeft.days}d{" "}
+            {String(timeLeft.hours).padStart(2, "0")}:
+            {String(timeLeft.minutes).padStart(2, "0")}:
+            {String(timeLeft.seconds).padStart(2, "0")}
+          </p>
+        )}
       </div>
+
       <Navbar />
       <HeroSection />
       <ImageCarousel />
@@ -58,4 +64,5 @@ const Home = () => {
     </>
   );
 };
+
 export default Home;
